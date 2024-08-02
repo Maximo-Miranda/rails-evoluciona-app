@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-body">
+    <%= form_with(model: task) do |form| %>
+      <% if task.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+          <ul>
+            <% task.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="mb-3">
+        <%= form.label :title, style: "display: block" %>
+        <%= form.text_field :title, class: "form-control" %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :description, style: "display: block" %>
+        <%= form.text_area :description, class: "form-control" %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :end_date, style: "display: block" %>
+        <%= form.datetime_field :end_date, class: "form-control" %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :task_status, style: "display: block" %>
+        <%= form.number_field :task_status, class: "form-control" %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :priority, style: "display: block" %>
+        <%= form.number_field :priority, class: "form-control" %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :image, style: "display: block" %>
+        <%= form.file_field :image, class: "form-control" %>
+      </div>
+      <div>
+        <%= form.submit "Save", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

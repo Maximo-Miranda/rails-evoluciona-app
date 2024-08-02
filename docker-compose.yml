@@ -1,0 +1,52 @@
+services:
+  postgres:
+    container_name: evoluciona-postgres
+    image: postgres:15
+    volumes:
+      - ./tmp/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    networks:
+      - evoluciona-dev-network
+  redis:
+    container_name: evoluciona-redis
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./tmp/redis:/data
+    networks:
+      - evoluciona-dev-network
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      retries: 3
+      timeout: 5s
+  mailpit:
+    image: 'axllent/mailpit:latest'
+    ports:
+      - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+      - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+    networks:
+      - evoluciona-dev-network
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - ./tmp/minio:/data
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    networks:
+      - evoluciona-dev-network
+networks:
+  evoluciona-dev-network:
+    driver: bridge
