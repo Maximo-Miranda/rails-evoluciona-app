@@ -83,6 +83,4 @@ test:
 #
 production:
   <<: *default
-  database: rails_evoluciona057_app_production
-  username: rails_evoluciona057_app
-  password: <%= ENV["RAILS_EVOLUCIONA057_APP_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
