@@ -15,11 +15,11 @@ local:
 #   bucket: your_own_bucket-<%= Rails.env %>
 minio:
   service: S3
-  access_key_id: minio
-  secret_access_key: minio123
+  access_key_id: <%= Rails.application.credentials.dig(:minio, :access_key_id) %>
+  secret_access_key: <%= Rails.application.credentials.dig(:minio, :secret_access_key) %>
   region: us-east-1
-  bucket: evoluciona-bucket
-  endpoint: http://localhost:9000
+  bucket: arquitectura-cloud
+  endpoint: https://minio-api.miproposito.co
   force_path_style: true
 
 # Remember not to checkin your GCS keyfile to a repository
