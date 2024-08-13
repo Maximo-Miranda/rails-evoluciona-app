@@ -7,3 +7,8 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+user = User.first
+1000.times do |i|
+  Task.create(title: "Task #{i}", description: "Description #{i}", end_date: Date.today + i.days, task_status: 1, priority: 1, user_id: user.id)
+end
