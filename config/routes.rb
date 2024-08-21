@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'user_data_mock/index'
   resources :tasks
   get 'dashboard', to: 'dashboard#index'
   devise_for :users
@@ -11,6 +10,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
-  get 'generate_report', to: 'home#generate_report'
   mount GoodJob::Engine => 'good_job'
 end
